@@ -8,7 +8,7 @@ public class GildedRose
     public const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";
     private const string AgedBrie = "Aged Brie";
     readonly IList<Item> _items;
-    public GildedRose(IList<Item> Items) => this._items = Items;
+    public GildedRose(IList<Item> items) => this._items = items;
 
     public void UpdateQuality()
     {
@@ -37,24 +37,6 @@ public class GildedRose
             return;
         }
 
-        if (item.Quality > 0)
-        {
-            item.Quality -= 1;
-        }
-
-        DecreaseSellIn(item);
-
-        if (item.SellingDateReached)
-        {
-            if (item.Quality > 0)
-            {
-                item.Quality -= 1;
-            }
-        }
-    }
-
-    private static void DecreaseSellIn(Item item)
-    {
-        item.SellIn = item.SellIn - 1;
+        new ItemProcessor(item).Process();
     }
 }
