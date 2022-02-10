@@ -5,7 +5,7 @@ namespace GildedRoseKata;
 public class GildedRose
 {
     private const string SulfurasHandOfRagnaros = "Sulfuras, Hand of Ragnaros";
-    private const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";
+    public  const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";
     private const string AgedBrie = "Aged Brie";
     readonly IList<Item> _items;
     public GildedRose(IList<Item> Items) => this._items = Items;
@@ -20,7 +20,13 @@ public class GildedRose
 
     private static void ProcessItem(Item item)
     {
-        if (item.Name != AgedBrie && item.Name != BackstagePasses)
+        if (item.Name.Equals(BackstagePasses))
+        {
+            new BackStageItemProcessor(item).Process();
+            return;
+        }
+
+        if (item.Name != AgedBrie)
         {
             if (item.Quality > 0)
             {
@@ -35,47 +41,21 @@ public class GildedRose
             if (item.Quality < 50)
             {
                 item.Quality = item.Quality + 1;
-
-                if (item.Name == BackstagePasses)
-                {
-                    if (item.SellIn < 11)
-                    {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality = item.Quality + 1;
-                        }
-                    }
-
-                    if (item.SellIn < 6)
-                    {
-                        if (item.Quality < 50)
-                        {
-                            item.Quality = item.Quality + 1;
-                        }
-                    }
-                }
             }
         }
 
         DecreaseSellIn(item);
 
-        if (item.SellIn < 0)
+        if (item.SellingDateReached)
         {
             if (item.Name != AgedBrie)
             {
-                if (item.Name != BackstagePasses)
+                if (item.Quality > 0)
                 {
-                    if (item.Quality > 0)
+                    if (item.Name != SulfurasHandOfRagnaros)
                     {
-                        if (item.Name != SulfurasHandOfRagnaros)
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
+                        item.Quality = item.Quality - 1;
                     }
-                }
-                else
-                {
-                    item.Quality = item.Quality - item.Quality;
                 }
             }
             else
