@@ -8,7 +8,7 @@ public class GildedRose
     public const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";
     private const string AgedBrie = "Aged Brie";
     readonly IList<Item> _items;
-    public GildedRose(IList<Item> items) => this._items = items;
+    public GildedRose(IList<Item> items) => _items = items;
 
     public void UpdateQuality()
     {

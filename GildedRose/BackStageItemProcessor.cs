@@ -1,11 +1,12 @@
 ﻿namespace GildedRoseKata;
 
-public class BackStageItemProcessor 
+public class BackStageItemProcessor : ItemProcessorBase
 {
-    public Item Item { get; }
+    public BackStageItemProcessor(Item item) : base(item)
+    {
+    }
 
-    public BackStageItemProcessor(Item item) => Item = item;
-    public void Process()
+    public override void Process()
     {
         if (Item.Quality < 50)
         {
@@ -28,7 +29,7 @@ public class BackStageItemProcessor
             }
         }
 
-        Item.SellIn -= 1;
+        DecreaseSellIn();
 
         if (Item.SellingDateReached)
         {

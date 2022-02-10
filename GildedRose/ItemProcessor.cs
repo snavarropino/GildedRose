@@ -1,19 +1,29 @@
 ﻿namespace GildedRoseKata;
 
-internal class ItemProcessor
+public abstract class ItemProcessorBase
 {
     public Item Item { get; }
 
-    public ItemProcessor(Item item) => Item = item;
+    protected ItemProcessorBase(Item item) => Item = item;
+    public abstract void Process();
 
-    public void Process()
+    protected void DecreaseSellIn() => Item.SellIn -= 1;
+}
+
+public class ItemProcessor : ItemProcessorBase
+{
+    public ItemProcessor(Item item) : base(item)
+    {
+    }
+
+    public override void Process()
     {
         if (Item.Quality > 0)
         {
             Item.Quality -= 1;
         }
 
-        Item.SellIn = Item.SellIn - 1;
+        DecreaseSellIn();
 
         if (Item.SellingDateReached)
         {
