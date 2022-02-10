@@ -57,10 +57,7 @@ public class GildedRose
             }
         }
 
-        if (item.Name != SulfurasHandOfRagnaros)
-        {
-            item.SellIn = item.SellIn - 1;
-        }
+        DecreaseSellIn(item);
 
         if (item.SellIn < 0)
         {
@@ -88,6 +85,14 @@ public class GildedRose
                     item.Quality = item.Quality + 1;
                 }
             }
+        }
+    }
+
+    private static void DecreaseSellIn(Item item)
+    {
+        if (item.Name != SulfurasHandOfRagnaros)
+        {
+            item.SellIn = item.SellIn - 1;
         }
     }
 }
