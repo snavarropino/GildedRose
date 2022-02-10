@@ -21,10 +21,14 @@ namespace GildedRoseTests;
     // [] luego de la fecha de venta la calidad cae a 0
 public class GildedRoseTestShould
 {
+    private const string SulfurasHandOfRagnaros = "Sulfuras, Hand of Ragnaros";
+    private const string AgedBrie = "Aged Brie";
+    private const string RandomProduct = "Random Product";
+
     [Fact]
     public void decrement_quality()
     {
-        var items = new List<Item> { new() { Name = "foo", SellIn = 10, Quality = 10 } };
+        var items = new List<Item> { new() { Name = RandomProduct, SellIn = 10, Quality = 10 } };
         new GildedRose(items).UpdateQuality();
         items.First().Quality.Should().Be(9);
     }
@@ -32,7 +36,7 @@ public class GildedRoseTestShould
     [Fact]
     public void decrement_selling_date()
     {
-        var items = new List<Item> { new() { Name = "foo", SellIn = 10, Quality = 10 } };
+        var items = new List<Item> { new() { Name = RandomProduct, SellIn = 10, Quality = 10 } };
         new GildedRose(items).UpdateQuality();
         items.First().SellIn.Should().Be(9);
     }
@@ -40,7 +44,7 @@ public class GildedRoseTestShould
     [Fact]
     public void decrement_double_quality_after_selling_date_is_reached()
     {
-        var items = new List<Item> { new() { Name = "foo", SellIn = 0, Quality = 10 } };
+        var items = new List<Item> { new() { Name = RandomProduct, SellIn = 0, Quality = 10 } };
         new GildedRose(items).UpdateQuality();
         items.First().Quality.Should().Be(8);
     }
@@ -48,7 +52,7 @@ public class GildedRoseTestShould
     [Fact]
     public void not_decrement_quality_under_zero()
     {
-        var items = new List<Item> { new() { Name = "foo", SellIn = 0, Quality = 0 } };
+        var items = new List<Item> { new() { Name = RandomProduct, SellIn = 0, Quality = 0 } };
         new GildedRose(items).UpdateQuality();
         items.First().Quality.Should().Be(0);
     }
@@ -56,7 +60,7 @@ public class GildedRoseTestShould
     [Fact]
     public void not_increment_quality_over_50()
     {
-        var items = new List<Item> { new() { Name = "Aged Brie", SellIn = 10, Quality = 50 } };
+        var items = new List<Item> { new() { Name = AgedBrie, SellIn = 10, Quality = 50 } };
         new GildedRose(items).UpdateQuality();
         items.First().Quality.Should().Be(50);
     }
@@ -64,7 +68,7 @@ public class GildedRoseTestShould
     [Fact]
     public void increment_aged_brie_quality()
     {
-        var items = new List<Item> { new() { Name = "Aged Brie", SellIn = 10, Quality = 5 } };
+        var items = new List<Item> { new() { Name = AgedBrie, SellIn = 10, Quality = 5 } };
         new GildedRose(items).UpdateQuality();
         items.First().Quality.Should().Be(6);
     }
@@ -72,7 +76,7 @@ public class GildedRoseTestShould
     [Fact]
     public void increment_aged_brie_quality_by_two_if_selling_date_is_reached()
     {
-        var items = new List<Item> { new() { Name = "Aged Brie", SellIn = 0, Quality = 5 } };
+        var items = new List<Item> { new() { Name = AgedBrie, SellIn = 0, Quality = 5 } };
         new GildedRose(items).UpdateQuality();
         items.First().Quality.Should().Be(7);
     }
@@ -80,7 +84,7 @@ public class GildedRoseTestShould
     [Fact]
     public void not_modify_sulfuras_quality()
     {
-        var items = new List<Item> { new() { Name = "Sulfuras, Hand of Ragnaros", SellIn = 6, Quality = 5 } };
+        var items = new List<Item> { new() { Name = SulfurasHandOfRagnaros, SellIn = 6, Quality = 5 } };
         new GildedRose(items).UpdateQuality();
         items.First().Quality.Should().Be(5);
     }
@@ -88,7 +92,7 @@ public class GildedRoseTestShould
     [Fact]
     public void not_modify_sulfuras_selling_date()
     {
-        var items = new List<Item> { new() { Name = "Sulfuras, Hand of Ragnaros", SellIn = 6, Quality = 5 } };
+        var items = new List<Item> { new() { Name = SulfurasHandOfRagnaros, SellIn = 6, Quality = 5 } };
         new GildedRose(items).UpdateQuality();
         items.First().SellIn.Should().Be(6);
     }
@@ -102,7 +106,7 @@ public class GildedRoseTestShould
     }
 
     [Fact]
-    public void increment_backstage_ticket_quality_by_two()
+    public void increment_backstage_ticket_quality_by_two_if_there_are_10_or_less_days_left_to_selling_date()
     {
         var items = new List<Item> { new() { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 10, Quality = 5 } };
         new GildedRose(items).UpdateQuality();
@@ -110,7 +114,7 @@ public class GildedRoseTestShould
     }
 
     [Fact]
-    public void increment_backstage_ticket_quality_by_three()
+    public void increment_backstage_ticket_quality_by_three_if_there_are_five_or_less_days_left_to_selling_date()
     {
         var items = new List<Item> { new() { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 5 } };
         new GildedRose(items).UpdateQuality();
@@ -118,7 +122,7 @@ public class GildedRoseTestShould
     }
 
     [Fact]
-    public void set_backstage_ticket_quality_to_zero_if_selling_date_reached()
+    public void set_backstage_ticket_quality_to_zero_if_selling_date_is_reached()
     {
         var items = new List<Item> { new() { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 5 } };
         new GildedRose(items).UpdateQuality();
