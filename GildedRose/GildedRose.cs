@@ -32,34 +32,29 @@ public class GildedRose
             return;
         }
 
+        if (item.Name.Equals(SulfurasHandOfRagnaros))
+        {
+            return;
+        }
+
         if (item.Quality > 0)
         {
-            if (item.Name != SulfurasHandOfRagnaros)
-            {
-                item.Quality -= 1;
-            }
+            item.Quality -= 1;
         }
 
         DecreaseSellIn(item);
 
         if (item.SellingDateReached)
         {
-
             if (item.Quality > 0)
             {
-                if (item.Name != SulfurasHandOfRagnaros)
-                {
-                    item.Quality -= 1;
-                }
+                item.Quality -= 1;
             }
         }
     }
 
     private static void DecreaseSellIn(Item item)
     {
-        if (item.Name != SulfurasHandOfRagnaros)
-        {
-            item.SellIn = item.SellIn - 1;
-        }
+        item.SellIn = item.SellIn - 1;
     }
 }
