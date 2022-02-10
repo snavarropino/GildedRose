@@ -9,14 +9,13 @@ public class BackStageItemProcessor
     {
         if (Item.Quality < 50)
         {
-            Item.Quality = Item.Quality + 1;
-
+            Item.Quality += 1;
 
             if (Item.SellIn < 11)
             {
                 if (Item.Quality < 50)
                 {
-                    Item.Quality = Item.Quality + 1;
+                    Item.Quality += 1;
                 }
             }
 
@@ -24,16 +23,16 @@ public class BackStageItemProcessor
             {
                 if (Item.Quality < 50)
                 {
-                    Item.Quality = Item.Quality + 1;
+                    Item.Quality += 1;
                 }
             }
         }
 
-        Item.SellIn = Item.SellIn - 1;
+        Item.SellIn -= 1;
 
         if (Item.SellingDateReached)
         {
-            Item.Quality = Item.Quality - Item.Quality;
+            Item.Quality -= Item.Quality;
         }
     }
 }

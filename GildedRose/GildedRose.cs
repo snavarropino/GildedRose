@@ -5,7 +5,7 @@ namespace GildedRoseKata;
 public class GildedRose
 {
     private const string SulfurasHandOfRagnaros = "Sulfuras, Hand of Ragnaros";
-    public  const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";
+    public const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";
     private const string AgedBrie = "Aged Brie";
     readonly IList<Item> _items;
     public GildedRose(IList<Item> Items) => this._items = Items;
@@ -26,21 +26,17 @@ public class GildedRose
             return;
         }
 
-        if (item.Name != AgedBrie)
+        if (item.Name.Equals(AgedBrie))
         {
-            if (item.Quality > 0)
-            {
-                if (item.Name != SulfurasHandOfRagnaros)
-                {
-                    item.Quality = item.Quality - 1;
-                }
-            }
+            new AgedBrieProcessor(item).Process();
+            return;
         }
-        else
+
+        if (item.Quality > 0)
         {
-            if (item.Quality < 50)
+            if (item.Name != SulfurasHandOfRagnaros)
             {
-                item.Quality = item.Quality + 1;
+                item.Quality -= 1;
             }
         }
 
@@ -48,21 +44,12 @@ public class GildedRose
 
         if (item.SellingDateReached)
         {
-            if (item.Name != AgedBrie)
+
+            if (item.Quality > 0)
             {
-                if (item.Quality > 0)
+                if (item.Name != SulfurasHandOfRagnaros)
                 {
-                    if (item.Name != SulfurasHandOfRagnaros)
-                    {
-                        item.Quality = item.Quality - 1;
-                    }
-                }
-            }
-            else
-            {
-                if (item.Quality < 50)
-                {
-                    item.Quality = item.Quality + 1;
+                    item.Quality -= 1;
                 }
             }
         }
