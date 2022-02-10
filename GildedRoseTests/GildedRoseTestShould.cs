@@ -22,7 +22,7 @@ namespace GildedRoseTests;
 public class GildedRoseTestShould
 {
     [Fact]
-    public void decrement_quality_each_day()
+    public void decrement_quality()
     {
         var items = new List<Item> { new() { Name = "foo", SellIn = 10, Quality = 10 } };
         new GildedRose(items).UpdateQuality();
@@ -30,7 +30,7 @@ public class GildedRoseTestShould
     }
 
     [Fact]
-    public void decrement_sellin_each_day()
+    public void decrement_selling_date()
     {
         var items = new List<Item> { new() { Name = "foo", SellIn = 10, Quality = 10 } };
         new GildedRose(items).UpdateQuality();
@@ -38,7 +38,7 @@ public class GildedRoseTestShould
     }
 
     [Fact]
-    public void decrement_double_quality_after_sellin_is_zero()
+    public void decrement_double_quality_after_selling_date_is_reached()
     {
         var items = new List<Item> { new() { Name = "foo", SellIn = 0, Quality = 10 } };
         new GildedRose(items).UpdateQuality();
@@ -62,7 +62,7 @@ public class GildedRoseTestShould
     }
 
     [Fact]
-    public void increment_aged_brie_quality_each_day()
+    public void increment_aged_brie_quality()
     {
         var items = new List<Item> { new() { Name = "Aged Brie", SellIn = 10, Quality = 5 } };
         new GildedRose(items).UpdateQuality();
@@ -70,7 +70,7 @@ public class GildedRoseTestShould
     }
 
     [Fact]
-    public void increment_aged_brie_quality_by_two_if_sellin_reached()
+    public void increment_aged_brie_quality_by_two_if_selling_date_is_reached()
     {
         var items = new List<Item> { new() { Name = "Aged Brie", SellIn = 0, Quality = 5 } };
         new GildedRose(items).UpdateQuality();
