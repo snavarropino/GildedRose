@@ -20,23 +20,27 @@ public class GildedRose
 
     private static void ProcessItem(Item item)
     {
+        var processor = GetProcessor(item);
+        processor.Process();
+    }
+
+    private static ItemProcessorBase GetProcessor(Item item)
+    {
         if (item.Name.Equals(BackstagePasses))
         {
-            new BackStageItemProcessor(item).Process();
-            return;
+            return new BackStageItemProcessor(item);
         }
 
         if (item.Name.Equals(AgedBrie))
         {
-            new AgedBrieProcessor(item).Process();
-            return;
+            return new AgedBrieProcessor(item);
         }
 
         if (item.Name.Equals(SulfurasHandOfRagnaros))
         {
-            return;
+            return new SulfurasHandOfRagnarosProcessor(item);
         }
 
-        new ItemProcessor(item).Process();
+        return new ItemProcessor(item);
     }
 }
