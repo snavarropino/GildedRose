@@ -6,8 +6,6 @@ public abstract class ItemProcessorBase
 
     protected ItemProcessorBase(Item item) => Item = item;
     public abstract void Process();
-
-    protected void DecreaseSellIn() => Item.SellIn -= 1;
 }
 
 public class ItemProcessor : ItemProcessorBase
@@ -20,16 +18,16 @@ public class ItemProcessor : ItemProcessorBase
     {
         if (Item.Quality > 0)
         {
-            Item.Quality -= 1;
+            Item.DecreaseQuality();
         }
 
-        DecreaseSellIn();
+        Item.DecreaseSellIn();
 
         if (Item.SellingDateReached)
         {
             if (Item.Quality > 0)
             {
-                Item.Quality -= 1;
+                Item.DecreaseQuality();
             }
         }
     }

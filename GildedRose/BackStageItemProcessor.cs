@@ -29,7 +29,7 @@ public class BackStageItemProcessor : ItemProcessorBase
             }
         }
 
-        DecreaseSellIn();
+        Item.DecreaseSellIn();
 
         if (Item.SellingDateReached)
         {

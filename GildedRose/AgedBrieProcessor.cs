@@ -8,18 +8,18 @@ public class AgedBrieProcessor: ItemProcessorBase
 
     public override void Process()
     {
-        if (Item.Quality < 50)
+        if (!Item.MaxQualityReached)
         {
-            Item.Quality += 1;
+            Item.IncreaseQuality();
+            
         }
-        DecreaseSellIn();
+        Item.DecreaseSellIn();
 
         if (Item.SellingDateReached)
         {
-            
-            if (Item.Quality < 50)
+            if (!Item.MaxQualityReached)
             {
-                Item.Quality += 1;
+                Item.IncreaseQuality();
             }
         }
     }
