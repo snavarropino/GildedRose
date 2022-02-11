@@ -16,19 +16,12 @@ public class ItemProcessor : ItemProcessorBase
 
     public override void Process()
     {
-        if (Item.Quality > 0)
-        {
-            Item.DecreaseQuality();
-        }
-
+        Item.DecreaseQuality();
         Item.DecreaseSellIn();
 
         if (Item.SellingDateReached)
         {
-            if (Item.Quality > 0)
-            {
-                Item.DecreaseQuality();
-            }
+            Item.DecreaseQuality();
         }
     }
 }

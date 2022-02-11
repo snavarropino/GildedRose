@@ -8,32 +8,27 @@ public class BackStageItemProcessor : ItemProcessorBase
 
     public override void Process()
     {
-        if (Item.Quality < 50)
+        Item.IncreaseQuality();
+
+        if (TenOrLessDaysLeft())
         {
-            Item.Quality += 1;
+            Item.IncreaseQuality();
+        }
 
-            if (Item.SellIn < 11)
-            {
-                if (Item.Quality < 50)
-                {
-                    Item.Quality += 1;
-                }
-            }
-
-            if (Item.SellIn < 6)
-            {
-                if (Item.Quality < 50)
-                {
-                    Item.Quality += 1;
-                }
-            }
+        if (FiveOrLessDaysLeft())
+        {
+            Item.IncreaseQuality();
         }
 
         Item.DecreaseSellIn();
 
         if (Item.SellingDateReached)
         {
-            Item.Quality -= Item.Quality;
+            Item.ResetQuality();
         }
     }
+
+    private bool FiveOrLessDaysLeft() => Item.SellIn <= 5;
+
+    private bool TenOrLessDaysLeft() => Item.SellIn <= 10;
 }

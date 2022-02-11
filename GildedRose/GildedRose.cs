@@ -26,19 +26,16 @@ public class GildedRose
 
     private static ItemProcessorBase GetProcessor(Item item)
     {
-        if (item.Name.Equals(BackstagePasses))
+        var processors = new Dictionary<string, ItemProcessorBase>
         {
-            return new BackStageItemProcessor(item);
-        }
+            {BackstagePasses, new BackStageItemProcessor(item)},
+            {AgedBrie, new AgedBrieProcessor(item)},
+            {SulfurasHandOfRagnaros, new SulfurasHandOfRagnarosProcessor(item)},
+        };
 
-        if (item.Name.Equals(AgedBrie))
+        if (processors.TryGetValue(item.Name, out var processor))
         {
-            return new AgedBrieProcessor(item);
-        }
-
-        if (item.Name.Equals(SulfurasHandOfRagnaros))
-        {
-            return new SulfurasHandOfRagnarosProcessor(item);
+            return processor;
         }
 
         return new ItemProcessor(item);
