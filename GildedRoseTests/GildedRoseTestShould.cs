@@ -19,7 +19,7 @@ namespace GildedRoseTests;
     // [X] si faltan 10 días o menos para el concierto, la calidad se incrementa en 2 unidades
     // [X] si faltan 5 días o menos, la calidad se incrementa en 3 unidades
     // [X] luego de la fecha de venta la calidad cae a 0
-public class GildedRoseTestShould
+public class GildedRoseShould
 {
     private const string SulfurasHandOfRagnaros = "Sulfuras, Hand of Ragnaros";
     private const string AgedBrie = "Aged Brie";
